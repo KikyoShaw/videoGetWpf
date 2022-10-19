@@ -27,9 +27,9 @@ namespace videoGet
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var vm = KuaiShouGet.Instance;
+            var vm = XiGuaGet.Instance;
             var text = UrlTextBox.Text;
-            vm.InitAll(text);
+            vm.InitUrl(text);
         }
     }
 }
