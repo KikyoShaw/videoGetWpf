@@ -23,6 +23,15 @@ namespace videoGet
         private JObject Json;
         private JObject JsonComment;
 
+        //构造函数 初始化json
+        public void InitUrl(string url)
+        {
+            string lower = GetLowerUrl(url);
+            string furlong = GetLongUrl(lower);
+            Dictionary<string, string> dic = SplitData(furlong);
+            GetJson(furlong, dic["fid"], dic["shareToken"], dic["shareObjectId"], dic["shareId"], dic["photoId"]);
+        }
+
         //获取快手链接
         private string GetLowerUrl(string url)
         {
@@ -205,14 +214,5 @@ namespace videoGet
             return commentTable;
         }
         
-        //初始化
-        public void InitAll(string str)
-        {
-            string lower = GetLowerUrl(str); //得到短链接
-            string furlong = GetLongUrl(lower); //得到长链接
-            Dictionary<string, string> dic = SplitData(furlong);//分割到参数
-            GetJson(furlong, dic["fid"], dic["shareToken"], dic["shareObjectId"], dic["shareId"], dic["photoId"]);
-        }
-
     }
 }
