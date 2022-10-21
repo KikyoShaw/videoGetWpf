@@ -21,6 +21,15 @@ namespace videoGet
 
         }
 
+        //构造函数 初始化json
+        public void InitUrl(string url)
+        {
+            var tempUrl = GetLowerUrl(url);
+            var tempId = GetId(tempUrl);
+            var tempJson = GetJson(tempId);
+            FormatJson(tempJson);
+        }
+
         //获取抖音链接
         private string GetLowerUrl(string url)
         {
