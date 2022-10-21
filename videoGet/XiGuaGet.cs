@@ -21,8 +21,8 @@ namespace videoGet
 
         }
 
-        private HtmlDocument Doc;
-        private JObject Json;
+        private HtmlDocument _doc;
+        private JObject _json;
 
         //构造函数 初始化json
         public void InitUrl(string url)
@@ -59,23 +59,23 @@ namespace videoGet
 
         private void FormatHtml(string str)
         {
-            Doc = new HtmlDocument();
-            Doc.LoadHtml(str);
+            _doc = new HtmlDocument();
+            _doc.LoadHtml(str);
         }
 
         //初始html
         private void FormatJson(string str)
         {
-            Doc = new HtmlDocument();
-            Doc.LoadHtml(str);
-            str = Doc.DocumentNode.SelectSingleNode("//body/script[@id='SSR_HYDRATED_DATA']").InnerText.Replace("window._SSR_HYDRATED_DATA=", "");
-            Json = JObject.Parse(str);
+            _doc = new HtmlDocument();
+            _doc.LoadHtml(str);
+            str = _doc.DocumentNode.SelectSingleNode("//body/script[@id='SSR_HYDRATED_DATA']").InnerText.Replace("window._SSR_HYDRATED_DATA=", "");
+            _json = JObject.Parse(str);
         }
 
         //360分辨率
         private string Get360Mp4()
         {
-            return FormatBase64(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_1"]?["main_url"]?.ToString());
+            return FormatBase64(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_1"]?["main_url"]?.ToString());
         }
 
         //480分辨率
@@ -83,7 +83,7 @@ namespace videoGet
         {
             try
             {
-                return FormatBase64(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_2"]?["main_url"]?.ToString());
+                return FormatBase64(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_2"]?["main_url"]?.ToString());
             }
             catch
             {
@@ -97,7 +97,7 @@ namespace videoGet
         {
             try
             {
-                return FormatBase64(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_3"]?["main_url"]?.ToString());
+                return FormatBase64(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_3"]?["main_url"]?.ToString());
             }
             catch
             {
@@ -110,7 +110,7 @@ namespace videoGet
         {
             try
             {
-                return FormatBase64(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_4"]?["main_url"]?.ToString());
+                return FormatBase64(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_4"]?["main_url"]?.ToString());
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace videoGet
         {
             try
             {
-                return FormatBase64(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_5"]?["main_url"]?.ToString());
+                return FormatBase64(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["videoResource"]?["normal"]?["video_list"]?["video_5"]?["main_url"]?.ToString());
             }
             catch
             {
@@ -146,25 +146,25 @@ namespace videoGet
         //作者头像
         public string GetAouthorHeadImage()
         {
-            return Regex.Unescape(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["user_info"]?["avatar_url"]?.ToString() ?? string.Empty);
+            return Regex.Unescape(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["user_info"]?["avatar_url"]?.ToString() ?? string.Empty);
         }
 
         //作者名称
         public string GetAouthorName()
         {
-            return Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["user_info"]?["name"]?.ToString();
+            return _json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["user_info"]?["name"]?.ToString();
         }
 
         //作品标题
         public string GetTitle()
         {
-            return Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["title"]?.ToString();
+            return _json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["title"]?.ToString();
         }
 
         //作品封面
         public string GetCover()
         {
-            return Regex.Unescape(Json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["poster_url"]?.ToString() ?? string.Empty);
+            return Regex.Unescape(_json["anyVideo"]?["gidInformation"]?["packerData"]?["video"]?["poster_url"]?.ToString() ?? string.Empty);
         }
 
         //Base64解密 获得视频的方法都需要调用他
