@@ -29,6 +29,9 @@ namespace videoGet
         {
             var text = UrlTextBox.Text;
 
+            if(string.IsNullOrEmpty(text))
+                return;
+
             //微视
             var vm = WeiShiGet.Instance;
             vm.InitUrl(text);
@@ -48,6 +51,16 @@ namespace videoGet
             //var vm = XiGuaGet.Instance;
             //vm.InitUrl(text);
             //var url = vm.Get1080Mp4();
+
+            if (!string.IsNullOrEmpty(url))
+            {
+                this.Player.SourceStr = url;
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Player.SourceStr = @"http://v.weishi.qq.com/v.weishi.qq.com/gzc_8542_1047_0bc3w4buyaadeiagu3zzwzrrjnyejs3qgtca.f70.mp4?dis_k=c9911306a3279b023cc404b14128956c&dis_t=1666339506&fromtag=0&pver=8.79.1";
         }
     }
 }
