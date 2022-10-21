@@ -4,7 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>default</LangVersion>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +14,20 @@
     <EmbeddedResource Remove="DLL\**" />
     <None Remove="DLL\**" />
     <Page Remove="DLL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="lib\mpv-1.dll" />
+    <None Remove="lib\youtube-dl.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="lib\mpv-1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\youtube-dl.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 	<ItemGroup>
@@ -25,12 +41,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Mpv.NET\Mpv.NET.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Reference Include="ffme">
 	    <HintPath>bin\Debug\netcoreapp3.1\DLL\ffme.dll</HintPath>
 	  </Reference>
 	  <Reference Include="ffmpeg">
 	    <HintPath>bin\Debug\netcoreapp3.1\DLL\ffmpeg.dll</HintPath>
 	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="lib\ytdl_hook.lua">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

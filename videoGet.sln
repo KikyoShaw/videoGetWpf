@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "videoGet", "videoGet\videoGet.csproj", "{ADD8BFE7-6E04-46E6-84F6-7CCD07E74723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "videoGet", "videoGet\videoGet.csproj", "{ADD8BFE7-6E04-46E6-84F6-7CCD07E74723}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mpv.NET", "Mpv.NET\Mpv.NET.csproj", "{3B0988A9-0137-409A-8EEB-BAB80917F2C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{ADD8BFE7-6E04-46E6-84F6-7CCD07E74723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADD8BFE7-6E04-46E6-84F6-7CCD07E74723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADD8BFE7-6E04-46E6-84F6-7CCD07E74723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B0988A9-0137-409A-8EEB-BAB80917F2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0988A9-0137-409A-8EEB-BAB80917F2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0988A9-0137-409A-8EEB-BAB80917F2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0988A9-0137-409A-8EEB-BAB80917F2C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
