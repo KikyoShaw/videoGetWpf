@@ -27,9 +27,10 @@ namespace videoGet
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var vm = XiGuaGet.Instance;
+            var vm = WeiShiGet.Instance;
             var text = UrlTextBox.Text;
             vm.InitUrl(text);
+            var url = vm.GetMp4();
         }
     }
 }
