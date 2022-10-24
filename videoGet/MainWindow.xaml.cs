@@ -82,7 +82,7 @@ namespace videoGet
             }
             else if (type == this.ComboBoxItem7.Content.ToString())
             {
-                var vm = KuaiShouGet.Instance;
+                var vm = PiPiXiaGet.Instance;
                 vm.InitUrl(url);
                 var name = vm.GetTitle();
                 this.VideoName.Text = name;
