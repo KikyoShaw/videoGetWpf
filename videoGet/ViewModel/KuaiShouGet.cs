@@ -39,7 +39,17 @@ namespace videoGet.ViewModel
         //获取快手链接
         private string GetLowerUrl(string url)
         {
-            return url.Substring(url.IndexOf("https://v.kuaishou.com", StringComparison.Ordinal), 29);
+            try
+            {
+                //需要用户登录分享链接才生效
+                return url.Substring(url.IndexOf("https://v.kuaishou.com", StringComparison.Ordinal), 29);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"KuaiShouGet GetLowerUrl is error: {ex}");
+            }
+
+            return "";
         }
 
         //获取长链接
