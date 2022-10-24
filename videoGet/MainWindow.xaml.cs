@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Mpv.NET.Player;
+using videoGet.ViewModel;
 
 namespace videoGet
 {
@@ -22,7 +12,7 @@ namespace videoGet
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MpvPlayer _player;
+        private readonly MpvPlayer _player;
 
         public MainWindow()
         {
@@ -30,7 +20,7 @@ namespace videoGet
             _player = new MpvPlayer(PlayerHost.Handle)
             {
                 Loop = true,
-                Volume = 50
+                Volume = 90
             };
         }
 
