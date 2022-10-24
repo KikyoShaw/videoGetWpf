@@ -22,6 +22,12 @@ namespace videoGet
                 Loop = true,
                 Volume = 90
             };
+
+            //处理成二维码
+            var url = @"https://github.com/KikyoShaw";
+            var image = Tools.QRCodeHelper.GetBitmapCode(url, 200, "", 0, 0, true);
+            if (image != null)
+                this.TestImage.Source = image;
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
