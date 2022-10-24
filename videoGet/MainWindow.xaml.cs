@@ -54,8 +54,8 @@ namespace videoGet
             var text = UrlTextBox.Text;
             if (string.IsNullOrEmpty(text))
                 return;
-            //微视
-            var vm = WeiShiGet.Instance;
+            //快手
+            var vm = KuaiShouGet.Instance;
             vm.InitUrl(text);
             var name = vm.GetTitle();
             this.VideoName.Text = name;

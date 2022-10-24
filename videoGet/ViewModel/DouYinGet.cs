@@ -32,44 +32,77 @@ namespace videoGet.ViewModel
         //获取抖音链接
         private string GetLowerUrl(string url)
         {
+            if (string.IsNullOrEmpty(url))
+                return "";
             return url.Substring(url.IndexOf("https://v.douyin.com", StringComparison.Ordinal), 29);
         }
 
         // 得到视频ID 需要传递短链接
         public string GetId(string url)
         {
-            HttpWebRequest beg = (HttpWebRequest)WebRequest.Create(url);
-            beg.AllowAutoRedirect = false;
-            WebResponse response = beg.GetResponse();
-            string str = response.Headers["Location"];
-            response.Dispose();
-            return str.Substring(str.IndexOf("video/", StringComparison.Ordinal) + 6, 19);
-           
+            if (string.IsNullOrEmpty(url)) 
+                return "";
+            try
+            {
+                HttpWebRequest beg = (HttpWebRequest)WebRequest.Create(url);
+                beg.AllowAutoRedirect = false;
+                WebResponse response = beg.GetResponse();
+                string str = response.Headers["Location"];
+                response.Dispose();
+                return str.Substring(str.IndexOf("video/", StringComparison.Ordinal) + 6, 19);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DouYinGet GetId is error: {ex}");
+            }
+
+            return "";
         }
 
         //得到JSON字符串
         private string GetJson(string id)
         {
-            string data = string.Empty;
-            HttpWebRequest beg = (HttpWebRequest)WebRequest.Create("https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids=" + id);
-            using HttpWebResponse ret = (HttpWebResponse)beg.GetResponse();
-            using StreamReader readData = new StreamReader(ret.GetResponseStream(), Encoding.UTF8);
-            return readData.ReadToEnd();
+            if (string.IsNullOrEmpty(id))
+                return "";
+            try
+            {
+                string data = string.Empty;
+                HttpWebRequest beg = (HttpWebRequest)WebRequest.Create("https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids=" + id);
+                using HttpWebResponse ret = (HttpWebResponse)beg.GetResponse();
+                using StreamReader readData = new StreamReader(ret.GetResponseStream(), Encoding.UTF8);
+                return readData.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DouYinGet GetJson is error: {ex}");
+            }
+
+            return "";
         }
 
         //填充json
         private void FormatJson(string json)
         {
-
-            JObject ob = JObject.Parse(json);
-            JArray convert = (JArray)ob["item_list"];
-            if (convert != null) 
-                _json = JObject.Parse(convert[0].ToString());
+            if(string.IsNullOrEmpty(json))
+                return;
+            try
+            {
+                JObject ob = JObject.Parse(json);
+                JArray convert = (JArray)ob["item_list"];
+                if (convert != null)
+                    _json = JObject.Parse(convert[0].ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DouYinGet FormatJson is error: {ex}");
+            }
         }
 
         //获取音频链接
         public string GetMuiscUrl()
         {
+            if (_json == null)
+                return string.Empty;
             //0音乐链接 1音乐标题
             return _json["music"]?["play_url"]?["uri"]?.ToString();
         }
@@ -77,6 +110,8 @@ namespace videoGet.ViewModel
         //获取视频标题
         public string GetTitle()
         {
+            if (_json == null)
+                return string.Empty;
             string title = _json["desc"]?.ToString();
             if (title != null)
             {
@@ -90,6 +125,8 @@ namespace videoGet.ViewModel
         [Obsolete("TimeZone")]
         public string GetCreateTime()
         {
+            if (_json == null)
+                return string.Empty;
             DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
             startTime = startTime.AddSeconds(Convert.ToInt64(_json["create_time"]));
             var dateTime = $"{startTime.Year}年{startTime.Month}月{startTime.Day}日 {startTime.Hour}:{startTime.Minute}:{startTime.Second}";
@@ -100,20 +137,25 @@ namespace videoGet.ViewModel
         //获取源视频链接
         public string GetVideoUrl()
         {
+            if (_json == null)
+                return string.Empty;
             string url = _json["video"]?["play_addr"]?["uri"]?.ToString();
             return "https://aweme.snssdk.com/aweme/v1/play/?video_id=" + url;
         }
 
         //获取封面
         public string GetCover()
-            //封面
         {
+            if (_json == null)
+                return string.Empty;
             return _json["video"]?["dynamic_cover"]?["url_list"]?[0]?.ToString();
         }
 
         //图片集处理
         public string[] GetImageUrl()
         {
+            if (_json == null)
+                return null;
             JArray imgUrl = (JArray)_json["images"];
             if (imgUrl != null)
             {
@@ -133,37 +175,9 @@ namespace videoGet.ViewModel
         //获取作者名字
         public string GetHostName()
         {
-
+            if (_json == null)
+                return string.Empty;
             return _json["author"]?["nickname"]?.ToString();
-        }
-
-        //获取所有信息
-        [Obsolete("TimeZone")]
-        public string[] GetAll(string txt)
-        {
-            string[] data;
-            txt = GetLowerUrl(txt);
-            txt =  GetId(txt);
-            txt = GetJson(txt);
-            FormatJson(txt);
-            //表示为视频
-            if (txt.Contains("\"images\":null,")) 
-            {
-                data = new string[7];
-                //0视频标题   1发布时间  2封面   3视频链接  4音乐链接  5作者名称
-                data[0] = GetTitle();
-                data[1] = GetCreateTime();
-                data[2] = GetCover();
-                data[3] = GetVideoUrl();
-                data[4] = GetMuiscUrl();
-                data[5] = GetHostName();
-                data[6] = "mp4";
-            }
-            else
-            {
-                data = GetImageUrl();
-            }
-            return data;
         }
     }
 }
