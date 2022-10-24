@@ -32,7 +32,13 @@ namespace videoGet
                 return;
 
             var url = GetVideoUrl(text);
+            if (string.IsNullOrEmpty(url))
+                return;
             MpvPlay(url);
+            //处理成二维码
+            var image = Tools.QRCodeHelper.GetBitmapCode(url, 200, "", 0, 0, true);
+            if(image != null)
+                this.TestImage.Source = image;
         }
 
         private string GetVideoUrl(string url)
@@ -110,6 +116,11 @@ namespace videoGet
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             _player.Dispose();
+        }
+
+        private void ButtonBase2_OnClick(object sender, RoutedEventArgs e)
+        {
+            TestPopup.IsOpen = true;
         }
     }
 }

@@ -9,39 +9,66 @@
         mc:Ignorable="d" Loaded="Window_Loaded" Closing="Window_Closing"
         Title="MainWindow" Height="660" Width="1110">
 
-    <Grid Background="AntiqueWhite">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="70"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="UrlTextBox" FontSize="20" Height="30" Margin="0 0 10 0"/>
-            <ComboBox Grid.Column="1" x:Name="VideoComboBox" FontSize="20">
-                <ComboBoxItem x:Name="ComboBoxItem1" Content="视频直链" IsSelected="True"/>
-                <ComboBoxItem x:Name="ComboBoxItem2" Content="抖音"/>
-                <ComboBoxItem x:Name="ComboBoxItem3" Content="快手"/>
-                <ComboBoxItem x:Name="ComboBoxItem4" Content="B站"/>
-                <ComboBoxItem x:Name="ComboBoxItem5" Content="西瓜"/>
-                <ComboBoxItem x:Name="ComboBoxItem6" Content="微视"/>
-                <ComboBoxItem x:Name="ComboBoxItem7" Content="皮皮虾"/>
-            </ComboBox>
-            <Button Grid.Column="2" Content="播放" Width="60" Height="30" Click="ButtonBase_OnClick"/>
-        </Grid>
-        <!--<Grid Margin="10" Background="Black" Height="400" Width="400">
+    <Window.Resources>
+        <SolidColorBrush x:Key="OpacityBrush" Color="#EBEBEB" Opacity="0.7"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid Background="AntiqueWhite">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="UrlTextBox" FontSize="20" Height="30" Margin="0 0 10 0"/>
+                <ComboBox Grid.Column="1" x:Name="VideoComboBox" FontSize="20">
+                    <ComboBoxItem x:Name="ComboBoxItem1" Content="视频直链" IsSelected="True"/>
+                    <ComboBoxItem x:Name="ComboBoxItem2" Content="抖音"/>
+                    <ComboBoxItem x:Name="ComboBoxItem3" Content="快手"/>
+                    <ComboBoxItem x:Name="ComboBoxItem4" Content="B站"/>
+                    <ComboBoxItem x:Name="ComboBoxItem5" Content="西瓜"/>
+                    <ComboBoxItem x:Name="ComboBoxItem6" Content="微视"/>
+                    <ComboBoxItem x:Name="ComboBoxItem7" Content="皮皮虾"/>
+                </ComboBox>
+                <Button Grid.Column="2" Content="播放" Width="60" Height="30" Click="ButtonBase_OnClick"/>
+                <Button x:Name="TestBtn" Grid.Column="3" Content="手机看" Width="60" Height="30" Click="ButtonBase2_OnClick"/>
+            </Grid>
+            <!--<Grid Margin="10" Background="Black" Height="400" Width="400">
             <player:PlayerControl x:Name="Player" Height="400" Width="400"/>
         </Grid>-->
-        <TextBlock Margin="10 0 0 0" Grid.Row="1" x:Name="VideoName" FontSize="20" Foreground="BlueViolet"/>
-        <Grid Grid.Row="2" Margin="10, 0, 10, 10" Background="Black">
-            <WindowsFormsHost>
-                <windowsForms:Panel x:Name="PlayerHost" />
-            </WindowsFormsHost>
+            <TextBlock Margin="10 0 0 0" Grid.Row="1" x:Name="VideoName" FontSize="20" Foreground="BlueViolet"/>
+            <Grid Grid.Row="2" Margin="10, 0, 10, 10" Background="Black">
+                <WindowsFormsHost>
+                    <windowsForms:Panel x:Name="PlayerHost" />
+                </WindowsFormsHost>
+            </Grid>
         </Grid>
-    </Grid>
 
+        <Popup x:Name="TestPopup" IsOpen="False" Focusable="False" StaysOpen="False" AllowsTransparency="True" Placement="Bottom"
+               PlacementTarget="{Binding ElementName=TestBtn}" HorizontalOffset="-80" VerticalOffset="0" >
+            <Grid x:Name="GridTestCtrl" Width="220" Height="220">
+                <Border x:Name="TestBorder" Background="White" CornerRadius="6" Margin="0,7,0,0" BorderThickness="0.8" BorderBrush="#FFE0E0E0" >
+                    <Image x:Name="TestImage" Width="200" Height="200"/>
+                </Border>
+                <Grid  Height="8.5" VerticalAlignment="Top">
+                    <Path Stroke="#FFE0E0E0" StrokeThickness="0.8" Fill="White" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="100,0,100,0">
+                        <Path.Data>
+                            <PathGeometry Figures="
+                                      M 73,7 
+                                      L 73,7 80,0 
+                                      L 80,0 87,7
+                                      "/>
+                        </Path.Data>
+                    </Path>
+                </Grid>
+            </Grid>
+        </Popup>
+    </Grid>
 </Window>
