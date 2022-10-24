@@ -25,14 +25,27 @@ namespace videoGet.ViewModel
         //构造函数 初始化json
         public void InitUrl(string url)
         {
-            //var tempUrl = GetUrl(url);
-            GetHtml(url);
+            var tempUrl = GetUrl(url);
+            GetHtml(tempUrl);
         }
 
         //截取链接,得到短链接
         private string GetUrl(string txt)
         {
-            return txt.Substring(txt.IndexOf(">>", StringComparison.Ordinal) + 2);
+            if (string.IsNullOrEmpty(txt))
+                return "";
+            if (!Tools.Helper.ContainChinese(txt))
+                return txt;
+            try
+            {
+                return txt.Substring(txt.IndexOf(">>", StringComparison.Ordinal) + 2);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"WeiShiGet GetHtml is error: {ex}");
+            }
+
+            return "";
         }
 
         //初始化json

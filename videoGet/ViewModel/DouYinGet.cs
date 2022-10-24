@@ -34,7 +34,19 @@ namespace videoGet.ViewModel
         {
             if (string.IsNullOrEmpty(url))
                 return "";
-            return url.Substring(url.IndexOf("https://v.douyin.com", StringComparison.Ordinal), 29);
+            try
+            {
+                if (!Tools.Helper.ContainChinese(url))
+                    return url;
+                //需要用户登录分享链接才生效
+                return url.Substring(url.IndexOf("https://v.douyin.com", StringComparison.Ordinal), 29);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DouYinGet GetLowerUrl is error: {ex}");
+            }
+
+            return "";
         }
 
         // 得到视频ID 需要传递短链接

@@ -39,8 +39,13 @@ namespace videoGet.ViewModel
         //获取快手链接
         private string GetLowerUrl(string url)
         {
+            if (string.IsNullOrEmpty(url))
+                return "";
+
             try
             {
+                if (!Tools.Helper.ContainChinese(url))
+                    return url;
                 //需要用户登录分享链接才生效
                 return url.Substring(url.IndexOf("https://v.kuaishou.com", StringComparison.Ordinal), 29);
             }
@@ -61,18 +66,10 @@ namespace videoGet.ViewModel
                 beg.AllowAutoRedirect = false;
                 beg.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
                 beg.UserAgent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Mobile Safari/537.36";
-                WebResponse response = null;
-                //try
-                //{
-                response = beg.GetResponse();
-                //}
-                //catch (WebException e) {
-                //    //if (e.Message.Contains("302"))
-                //        //response = e.Result;
-                //}
-
+                WebResponse response = beg.GetResponse();
+                var longUrl = response.Headers["Location"];
                 response.Dispose();
-                return response.Headers["Location"];
+                return longUrl;
             }
             catch (Exception ex)
             {
