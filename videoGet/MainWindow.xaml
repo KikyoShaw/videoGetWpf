@@ -18,18 +18,20 @@
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="UrlTextBox" FontSize="20" Height="30" Margin="0 0 10 0"/>
-            <Button Grid.Column="1" Content="播放" Width="60" Height="30" Click="ButtonBase_OnClick"/>
-            <Button Grid.Column="2" Content="抖音" Width="60" Height="30" Click="ButtonBase2_OnClick"/>
-            <Button Grid.Column="3" Content="快手" Width="60" Height="30" Click="ButtonBase3_OnClick"/>
-            <Button Grid.Column="4" Content="西瓜" Width="60" Height="30" Click="ButtonBase4_OnClick"/>
-            <Button Grid.Column="5" Content="微视" Width="60" Height="30" Click="ButtonBase5_OnClick"/>
+            <ComboBox Grid.Column="1" x:Name="VideoComboBox" FontSize="20">
+                <ComboBoxItem x:Name="ComboBoxItem1" Content="视频直链" IsSelected="True"/>
+                <ComboBoxItem x:Name="ComboBoxItem2" Content="抖音"/>
+                <ComboBoxItem x:Name="ComboBoxItem3" Content="快手"/>
+                <ComboBoxItem x:Name="ComboBoxItem4" Content="B站"/>
+                <ComboBoxItem x:Name="ComboBoxItem5" Content="西瓜"/>
+                <ComboBoxItem x:Name="ComboBoxItem6" Content="微视"/>
+                <ComboBoxItem x:Name="ComboBoxItem7" Content="皮皮虾"/>
+            </ComboBox>
+            <Button Grid.Column="2" Content="播放" Width="60" Height="30" Click="ButtonBase_OnClick"/>
         </Grid>
         <!--<Grid Margin="10" Background="Black" Height="400" Width="400">
             <player:PlayerControl x:Name="Player" Height="400" Width="400"/>

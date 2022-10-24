@@ -28,67 +28,67 @@ namespace videoGet
         {
             var text = UrlTextBox.Text;
 
-            if(string.IsNullOrEmpty(text))
-                return;
-
-            _player.Load(text);
-            _player.Resume();
-        }
-
-        private void ButtonBase2_OnClick(object sender, RoutedEventArgs e)
-        {
-            var text = UrlTextBox.Text;
             if (string.IsNullOrEmpty(text))
                 return;
-            //抖音
-            var vm = DouYinGet.Instance;
-            vm.InitUrl(text);
-            var name = vm.GetTitle();
-            this.VideoName.Text = name;
-            var url = vm.GetVideoUrl();
+
+            var url = GetVideoUrl(text);
             MpvPlay(url);
         }
 
-        private void ButtonBase3_OnClick(object sender, RoutedEventArgs e)
+        private string GetVideoUrl(string url)
         {
-            var text = UrlTextBox.Text;
-            if (string.IsNullOrEmpty(text))
-                return;
-            //快手
-            var vm = KuaiShouGet.Instance;
-            vm.InitUrl(text);
-            var name = vm.GetTitle();
-            this.VideoName.Text = name;
-            var url = vm.GetMp4();
-            MpvPlay(url);
-        }
+            string videoUrl = "";
+            var type = this.VideoComboBox.Text;
+            if (type == this.ComboBoxItem1.Content.ToString())
+            {
+                videoUrl = url;
+                this.VideoName.Text = url;
+            }
+            else if (type == this.ComboBoxItem2.Content.ToString())
+            {
+                var vm = DouYinGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.GetVideoUrl();
+            }
+            else if (type == this.ComboBoxItem3.Content.ToString())
+            {
+                var vm = KuaiShouGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.GetMp4();
+            }
+            else if (type == this.ComboBoxItem4.Content.ToString())
+            {
 
-        private void ButtonBase4_OnClick(object sender, RoutedEventArgs e)
-        {
-            var text = UrlTextBox.Text;
-            if (string.IsNullOrEmpty(text))
-                return;
-            //西瓜视频
-            var vm = XiGuaGet.Instance;
-            vm.InitUrl(text);
-            var name = vm.GetTitle();
-            this.VideoName.Text = name;
-            var url = vm.Get1080Mp4();
-            MpvPlay(url);
-        }
-
-        private void ButtonBase5_OnClick(object sender, RoutedEventArgs e)
-        {
-            var text = UrlTextBox.Text;
-            if (string.IsNullOrEmpty(text))
-                return;
-            //微视
-            var vm = WeiShiGet.Instance;
-            vm.InitUrl(text);
-            var name = vm.GetTitle();
-            this.VideoName.Text = name;
-            var url = vm.GetMp4();
-            MpvPlay(url);
+            }
+            else if (type == this.ComboBoxItem5.Content.ToString())
+            {
+                var vm = XiGuaGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.Get1080Mp4();
+            }
+            else if (type == this.ComboBoxItem6.Content.ToString())
+            {
+                var vm = WeiShiGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.GetMp4();
+            }
+            else if (type == this.ComboBoxItem7.Content.ToString())
+            {
+                var vm = KuaiShouGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.GetMp4();
+            }
+            return videoUrl;
         }
 
         private void MpvPlay(string url)
