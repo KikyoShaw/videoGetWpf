@@ -36,6 +36,7 @@
                     <ComboBoxItem x:Name="ComboBoxItem5" Content="西瓜"/>
                     <ComboBoxItem x:Name="ComboBoxItem6" Content="微视"/>
                     <ComboBoxItem x:Name="ComboBoxItem7" Content="皮皮虾"/>
+                    <ComboBoxItem x:Name="ComboBoxItem8" Content="皮皮搞笑"/>
                 </ComboBox>
                 <Button Grid.Column="2" Content="播放" Width="60" Height="30" Click="ButtonBase_OnClick"/>
                 <Button x:Name="TestBtn" Grid.Column="3" Content="手机看" Width="60" Height="30" Click="ButtonBase2_OnClick"/>

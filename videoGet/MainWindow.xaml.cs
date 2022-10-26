@@ -100,6 +100,14 @@ namespace videoGet
                 this.VideoName.Text = name;
                 videoUrl = vm.GetMp4();
             }
+            else if (type == this.ComboBoxItem8.Content.ToString())
+            {
+                var vm = PipiGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.GetMp4();
+            }
             return videoUrl;
         }
 
