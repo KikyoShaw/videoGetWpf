@@ -108,6 +108,14 @@ namespace videoGet
                 this.VideoName.Text = name;
                 videoUrl = vm.GetMp4();
             }
+            else if (type == this.ComboBoxItem9.Content.ToString())
+            {
+                var vm = ZuiYouGet.Instance;
+                vm.InitUrl(url);
+                var name = vm.GetTitle();
+                this.VideoName.Text = name;
+                videoUrl = vm.GetMp4();
+            }
             return videoUrl;
         }
 
